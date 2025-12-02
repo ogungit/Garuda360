@@ -1,0 +1,10 @@
+Flask
+Flask-SQLAlchemy
+Flask-Migrate
+python-dotenv
+pip freeze > requirements.txt
+Flask-login
+gunicorn
+werkzeug
+Jinja2
+email-validator

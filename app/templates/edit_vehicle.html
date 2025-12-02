@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="mb-4">Edit Vehicle</h2>
+
+<form method="POST">
+
+    <div class="mb-3">
+        <label class="form-label">Brand</label>
+        <input type="text" class="form-control" name="brand" value="{{ vehicle.brand }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Model</label>
+        <input type="text" class="form-control" name="model" value="{{ vehicle.model }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Year</label>
+        <input type="number" class="form-control" name="year" value="{{ vehicle.year }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Registration Number</label>
+        <input type="text" class="form-control" name="registration_no" value="{{ vehicle.registration_no }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Odometer</label>
+        <input type="number" class="form-control" name="current_odometer" value="{{ vehicle.current_odometer }}">
+    </div>
+
+    <button class="btn btn-primary" type="submit">Update Vehicle</button>
+    <a href="/vehicles" class="btn btn-secondary ms-2">Cancel</a>
+
+</form>
+
+{% endblock %}

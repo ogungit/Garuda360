@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="mb-3">Service History – {{ vehicle.brand }} {{ vehicle.model }}</h2>
+
+<a href="/vehicles/{{ vehicle.id }}/services/new" class="btn btn-primary mb-3">
+    Add Service Record
+</a>
+<a href="/vehicles/{{ vehicle.id }}" class="btn btn-secondary mb-3 ms-2">
+    Back to Vehicle
+</a>
+
+{% if services %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Odometer</th>
+            <th>Type</th>
+            <th>Total Cost</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for s in services %}
+        <tr>
+            <td>{{ s.service_date }}</td>
+            <td>{{ s.odometer_at_service }} km</td>
+            <td>{{ s.service_type }}</td>
+            <td>${{ '%.2f'|format(s.total_cost or 0) }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No service records yet.</p>
+{% endif %}
+
+{% endblock %}

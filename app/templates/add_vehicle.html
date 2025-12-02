@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="mb-4">Add New Vehicle</h2>
+
+<form method="POST">
+
+    <div class="mb-3">
+        <label class="form-label">Brand</label>
+        <input type="text" class="form-control" name="brand" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Model</label>
+        <input type="text" class="form-control" name="model" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Year</label>
+        <input type="number" class="form-control" name="year">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Registration Number</label>
+        <input type="text" class="form-control" name="registration_no">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Current Odometer (km)</label>
+        <input type="number" class="form-control" name="current_odometer" value="0">
+    </div>
+
+    <button class="btn btn-primary" type="submit">Save Vehicle</button>
+    <a href="/vehicles" class="btn btn-secondary ms-2">Cancel</a>
+
+</form>
+
+{% endblock %}

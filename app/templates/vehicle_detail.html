@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="mb-3">{{ vehicle.brand }} {{ vehicle.model }} ({{ vehicle.year or "N/A" }})</h2>
+
+<div class="row">
+    <!-- Vehicle Info -->
+    <div class="col-md-4">
+        <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Vehicle Info</h5>
+                <p class="card-text">
+                    <strong>Registration:</strong> {{ vehicle.registration_no or "N/A" }}<br>
+                    <strong>Odometer:</strong> {{ vehicle.current_odometer }} km<br>
+                    <strong>Group:</strong> {{ vehicle.group.group_name if vehicle.group else "N/A" }}
+                </p>
+                <a href="/vehicles/{{ vehicle.id }}/edit" class="btn btn-sm btn-outline-primary">Edit Vehicle</a>
+                <a href="/vehicles" class="btn btn-sm btn-secondary ms-2">Back to List</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Summary -->
+    <div class="col-md-4">
+        <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Service Summary</h5>
+                <p class="card-text">
+                    <strong>Total Service Records:</strong> {{ service_count }}<br>
+                    <strong>Total Service Expense:</strong> ${{ '%.2f'|format(total_service_expense) }}
+                </p>
+                <a href="/vehicles/{{ vehicle.id }}/services" class="btn btn-sm btn-outline-dark">View Service History</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fuel Summary -->
+    <div class="col-md-4">
+        <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Fuel Summary</h5>
+                <p class="card-text">
+                    <strong>Total Fuel Cost:</strong> ${{ '%.2f'|format(total_fuel_cost) }}<br>
+                    <strong>Total Liters:</strong> {{ '%.1f'|format(total_liters) }} L<br>
+                    <strong>Avg. Mileage:</strong>
+                    {% if km_per_liter %}
+                        {{ '%.2f'|format(km_per_liter) }} km/l
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </p>
+                <a href="/vehicles/{{ vehicle.id }}/fuel" class="btn btn-sm btn-outline-dark">View Fuel Log</a>
+            </div>
+        </div>
+    </div>
+</div>
+<hr class="mt-4 mb-3">
+
+<h4>Next Service Predictions</h4>
+<p class="text-muted">
+    Based on last recorded service and simple rules (km & months).
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Service Type</th>
+            <th>Last Service Date</th>
+            <th>Last Odometer (km)</th>
+            <th>Predicted Next Date</th>
+            <th>Predicted Next Odometer (km)</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for p in service_predictions %}
+        <tr>
+            <td>{{ p.service_type }}</td>
+            <td>{{ p.last_date }}</td>
+            <td>{{ p.last_odo }}</td>
+            <td>{{ p.next_date }}</td>
+            <td>{{ p.next_odo }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}
+

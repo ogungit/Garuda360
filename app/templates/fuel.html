@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="mb-3">Fuel Log – {{ vehicle.brand }} {{ vehicle.model }}</h2>
+
+<a href="/vehicles/{{ vehicle.id }}/fuel/new" class="btn btn-primary mb-3">
+    Add Fuel Entry
+</a>
+<a href="/vehicles/{{ vehicle.id }}" class="btn btn-secondary mb-3 ms-2">
+    Back to Vehicle
+</a>
+
+{% if entries %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Odometer</th>
+            <th>Liters</th>
+            <th>Price/Liter</th>
+            <th>Total Cost</th>
+            <th>Station</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for e in entries %}
+        <tr>
+            <td>{{ e.date }}</td>
+            <td>{{ e.odometer }} km</td>
+            <td>{{ e.liters }}</td>
+            <td>${{ '%.2f'|format(e.price_per_liter or 0) }}</td>
+            <td>${{ '%.2f'|format(e.total_cost or 0) }}</td>
+            <td>{{ e.station_name }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No fuel entries yet.</p>
+{% endif %}
+
+{% endblock %}

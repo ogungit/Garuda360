@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="mb-3">Add Fuel Entry – {{ vehicle.brand }} {{ vehicle.model }}</h2>
+
+<form method="POST">
+
+    <div class="mb-3">
+        <label class="form-label">Date</label>
+        <input type="date" class="form-control" name="date" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Odometer (km)</label>
+        <input type="number" class="form-control" name="odometer" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Liters</label>
+        <input type="number" step="0.1" class="form-control" name="liters" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Price per Liter</label>
+        <input type="number" step="0.01" class="form-control" name="price_per_liter" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Total Cost (leave blank to auto-calc)</label>
+        <input type="number" step="0.01" class="form-control" name="total_cost">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Fuel Type</label>
+        <input type="text" class="form-control" name="fuel_type" placeholder="Petrol, Diesel, etc.">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Station Name</label>
+        <input type="text" class="form-control" name="station_name">
+    </div>
+
+    <button class="btn btn-primary" type="submit">Save Fuel Entry</button>
+    <a href="/vehicles/{{ vehicle.id }}/fuel" class="btn btn-secondary ms-2">Cancel</a>
+
+</form>
+
+{% endblock %}
